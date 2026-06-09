@@ -1,7 +1,7 @@
 import streamlit as st
 import pandas as pd
-import gspread
-from googlo.oauth2.service_account import Credentials
+#import gspread
+#from google.oauth2.service_account import Credentials
 
 # =====================
 # CONFIGURAÇÃO DA PÁGINA
@@ -22,7 +22,7 @@ sheet_id = "1sNv3ZqjwnKBWtMCfLrTtSdPqAWm0-lVFqG2dOapN2uU"
 
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
 
-df = pd.read_csv("feedbacks_prompt_unico.csv")
+df = pd.read_csv(url)
 
 # =====================
 # SELEÇÃO DO REGISTRO
