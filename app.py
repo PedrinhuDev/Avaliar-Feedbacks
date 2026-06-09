@@ -22,7 +22,7 @@ sheet_id = "1sNv3ZqjwnKBWtMCfLrTtSdPqAWm0-lVFqG2dOapN2uU"
 
 url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
 
-df = pd.read_csv(url)
+df = pd.read_csv("feedbacks_prompt_unico - Página1.csv")
 
 # =====================
 # SELEÇÃO DO REGISTRO
