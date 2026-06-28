@@ -24,6 +24,8 @@ url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
 
 df = pd.read_csv("feedbacks_prompt_unico - Página1.csv")
 
+df = df[df["status_is_correct"] == False]
+
 # =====================
 # SELEÇÃO DO REGISTRO
 # =====================
