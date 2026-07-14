@@ -18,26 +18,34 @@ st.title("Avaliação de Feedbacks Gerados por LLM")
 # CARREGAMENTO DOS DADOS
 # =====================
 
-sheet_id = "1sNv3ZqjwnKBWtMCfLrTtSdPqAWm0-lVFqG2dOapN2uU"
+df = pd.read_csv("feedbacks_prompt_unico.csv")
 
-url = f"https://docs.google.com/spreadsheets/d/{sheet_id}/export?format=csv"
+# Filtra apenas respostas incorretas
+df["status_is_correct"] = df["status_is_correct"].astype(str)
+df = df[df["status_is_correct"] == "False"]
 
-df = pd.read_csv("feedbacks_prompt_unico - Página1.csv")
-
-df = df[df["status_is_correct"] == False]
+# Reorganiza os índices
+df = df.reset_index(drop=True)
 
 # =====================
 # SELEÇÃO DO REGISTRO
 # =====================
 
-indice = st.number_input(
-    "Selecione o registro",
-    min_value=0,
-    max_value=len(df)-1,
-    value=0
-)
+if "indice" not in st.session_state:
+    st.session_state.indice = 0
 
-linha = df.iloc[indice]
+# Caso todas as avaliações tenham terminado
+if st.session_state.indice >= len(df):
+    st.success("✅ Todas as avaliações foram concluídas!")
+    st.stop()
+
+linha = df.iloc[st.session_state.indice]
+
+# =====================
+# PROGRESSO
+# =====================
+
+st.write(f"### Feedback {st.session_state.indice + 1} de {len(df)}")
 
 # =====================
 # QUESTÃO
@@ -46,6 +54,7 @@ linha = df.iloc[indice]
 st.subheader("Questão")
 
 st.write(linha["problem"])
+
 
 # =====================
 # RESPOSTA DO ESTUDANTE
@@ -85,4 +94,15 @@ observacao = st.text_area(
     "Observações"
 )
 
-st.button("Salvar")
+# =====================
+# BOTÃO SALVAR
+# =====================
+
+if st.button("Salvar"):
+
+    # Ainda não salva no CSV
+    # Isso será implementado na próxima etapa
+
+    st.session_state.indice += 1
+
+    st.rerun()
