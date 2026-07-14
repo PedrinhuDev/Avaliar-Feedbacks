@@ -102,7 +102,6 @@ if st.button("Salvar"):
         "feedback": [linha["feedback"]],
         "avaliacao": [avaliacao],
         "observacao": [observacao],
-        "data_hora": [datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
     })
 
     if os.path.exists(arquivo_avaliacoes):
