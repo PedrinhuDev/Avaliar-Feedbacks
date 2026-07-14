@@ -1,7 +1,5 @@
 import streamlit as st
 import pandas as pd
-#import gspread
-#from google.oauth2.service_account import Credentials
 
 # =====================
 # CONFIGURAÇÃO DA PÁGINA
@@ -28,7 +26,7 @@ df = df[df["status_is_correct"] == "False"]
 df = df.reset_index(drop=True)
 
 # =====================
-# SELEÇÃO DO REGISTRO
+# CONTROLE DO REGISTRO
 # =====================
 
 if "indice" not in st.session_state:
@@ -54,7 +52,6 @@ st.write(f"### Feedback {st.session_state.indice + 1} de {len(df)}")
 st.subheader("Questão")
 
 st.write(linha["problem"])
-
 
 # =====================
 # RESPOSTA DO ESTUDANTE
@@ -90,9 +87,7 @@ avaliacao = st.radio(
     ]
 )
 
-observacao = st.text_area(
-    "Observações"
-)
+observacao = st.text_area("Observações")
 
 # =====================
 # BOTÃO SALVAR
