@@ -20,6 +20,8 @@ st.title("Avaliação de Feedbacks Gerados por LLM")
 
 df = pd.read_csv("feedbacks_prompt_unico - Página1.csv")
 
+arquivo_avaliacoes = "avaliacoes_professor.csv"
+
 # Filtra apenas respostas incorretas
 df["status_is_correct"] = df["status_is_correct"].astype(str)
 df = df[df["status_is_correct"] == "False"]
