@@ -1,5 +1,7 @@
 import streamlit as st
 import pandas as pd
+import os
+from datetime import datetime
 
 # =====================
 # CONFIGURAÇÃO DA PÁGINA
@@ -95,8 +97,31 @@ observacao = st.text_area("Observações")
 
 if st.button("Salvar"):
 
-    # Ainda não salva no CSV
-    # Isso será implementado na próxima etapa
+    nova_avaliacao = pd.DataFrame({
+        "problem_id": [linha["problem_id"]],
+        "feedback": [linha["feedback"]],
+        "avaliacao": [avaliacao],
+        "observacao": [observacao],
+        "data_hora": [datetime.now().strftime("%Y-%m-%d %H:%M:%S")]
+    })
+
+    if os.path.exists(arquivo_avaliacoes):
+
+        nova_avaliacao.to_csv(
+            arquivo_avaliacoes,
+            mode="a",
+            header=False,
+            index=False
+        )
+
+    else:
+
+        nova_avaliacao.to_csv(
+            arquivo_avaliacoes,
+            index=False
+        )
+
+    st.success("Avaliação salva com sucesso!")
 
     st.session_state.indice += 1
 
