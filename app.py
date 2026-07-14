@@ -16,7 +16,7 @@ st.title("Avaliação de Feedbacks Gerados por LLM")
 # CARREGAMENTO DOS DADOS
 # =====================
 
-df = pd.read_csv("feedbacks_prompt_unico.csv")
+df = pd.read_csv("feedbacks_prompt_unico - Página1.csv")
 
 # Filtra apenas respostas incorretas
 df["status_is_correct"] = df["status_is_correct"].astype(str)
