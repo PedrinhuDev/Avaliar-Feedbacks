@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
-import os
+import gspread
+from google.oauth2.service_account import Credentials
 from datetime import datetime
 
 # =====================
@@ -13,6 +14,28 @@ st.set_page_config(
 )
 
 st.title("Avaliação de Feedbacks Gerados por LLM")
+
+# =====================
+# CONEXÃO COM GOOGLE SHEETS
+# =====================
+
+SCOPES = [
+    "https://www.googleapis.com/auth/spreadsheets",
+    "https://www.googleapis.com/auth/drive"
+]
+
+creds = Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"],
+    scopes=SCOPES
+)
+
+client = gspread.authorize(creds)
+
+planilha = client.open_by_key(
+    "1_uo0DrYh-VSguix163r5zsV9n5noG_ROwFN44RyG2ls"
+)
+
+worksheet = planilha.worksheet("Página1")
 
 # =====================
 # CARREGAMENTO DOS DADOS
@@ -99,28 +122,13 @@ observacao = st.text_area("Observações")
 
 if st.button("Salvar"):
 
-    nova_avaliacao = pd.DataFrame({
-        "problem_id": [linha["problem_id"]],
-        "feedback": [linha["feedback"]],
-        "avaliacao": [avaliacao],
-        "observacao": [observacao],
-    })
-
-    if os.path.exists(arquivo_avaliacoes):
-
-        nova_avaliacao.to_csv(
-            arquivo_avaliacoes,
-            mode="a",
-            header=False,
-            index=False
-        )
-
-    else:
-
-        nova_avaliacao.to_csv(
-            arquivo_avaliacoes,
-            index=False
-        )
+    worksheet.append_row([
+        linha["problem_id"],
+        linha["feedback"],
+        avaliacao,
+        observacao,
+        datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    ])
 
     st.success("Avaliação salva com sucesso!")
 
