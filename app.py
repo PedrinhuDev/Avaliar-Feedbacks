@@ -15,6 +15,15 @@ st.set_page_config(
 
 st.title("Avaliação de Feedbacks Gerados por LLM")
 
+st.components.v1.html(
+    """
+    <script>
+        window.parent.scrollTo(0, 0);
+    </script>
+    """,
+    height=0
+)
+
 # =====================
 # CONEXÃO COM GOOGLE SHEETS
 # =====================
