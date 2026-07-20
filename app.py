@@ -125,13 +125,17 @@ if st.button("Salvar"):
     st.write(type(avaliacao))
     st.write(type(observacao))
 
-    worksheet.append_row([
-        linha["problem_id"],
-        linha["feedback"],
-        avaliacao,
-        observacao,
-        datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    ])
+    dados = [
+    str(linha["problem_id"]),
+    str(linha["feedback"]),
+    str(avaliacao),
+    str(observacao),
+    datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    ]
+
+    st.write(dados)
+
+    worksheet.append_row(dados)
 
     st.success("Avaliação salva com sucesso!")
 
