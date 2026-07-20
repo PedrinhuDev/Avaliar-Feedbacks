@@ -109,10 +109,14 @@ avaliacao = st.radio(
         "Correto",
         "Parcialmente correto",
         "Incorreto"
-    ]
+    ],
+    key=f"avaliacao_{st.session_state.indice}"
 )
 
-observacao = st.text_area("Observações")
+observacao = st.text_area(
+    "Observações",
+    key=f"observacao_{st.session_state.indice}"
+)
 
 # =====================
 # BOTÃO SALVAR
