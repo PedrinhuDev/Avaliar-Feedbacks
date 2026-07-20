@@ -120,6 +120,11 @@ observacao = st.text_area("Observações")
 
 if st.button("Salvar"):
 
+    st.write(type(linha["problem_id"]))
+    st.write(type(linha["feedback"]))
+    st.write(type(avaliacao))
+    st.write(type(observacao))
+
     worksheet.append_row([
         linha["problem_id"],
         linha["feedback"],
