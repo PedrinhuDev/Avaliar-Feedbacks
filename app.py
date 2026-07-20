@@ -142,41 +142,13 @@ with st.form(key=f"form_{st.session_state.indice}"):
 if salvar:
 
     worksheet.append_row([
+        st.session_state.indice,
         int(linha["problem_id"]),
         str(linha["feedback"]),
         str(avaliacao),
         str(observacao),
         datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     ])
-
-    st.session_state.indice += 1
-
-    st.rerun()
-
-# =====================
-# BOTÃO SALVAR
-# =====================
-
-if st.button("Salvar"):
-
-    st.write(type(linha["problem_id"]))
-    st.write(type(linha["feedback"]))
-    st.write(type(avaliacao))
-    st.write(type(observacao))
-
-    dados = [
-    str(linha["problem_id"]),
-    str(linha["feedback"]),
-    str(avaliacao),
-    str(observacao),
-    datetime.now().strftime("%d/%m/%Y %H:%M:%S")
-    ]
-
-    st.write(dados)
-
-    worksheet.append_row(dados)
-
-    st.success("Avaliação salva com sucesso!")
 
     st.session_state.indice += 1
 
