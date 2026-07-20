@@ -47,6 +47,14 @@ planilha = client.open_by_key(
 worksheet = planilha.worksheet("Página1")
 
 # =====================
+# AVALIAÇÕES JÁ REALIZADAS
+# =====================
+
+avaliacoes = worksheet.get_all_records()
+
+quantidade_avaliacoes = len(avaliacoes)
+
+# =====================
 # CARREGAMENTO DOS DADOS
 # =====================
 
@@ -64,7 +72,7 @@ df = df.reset_index(drop=True)
 # =====================
 
 if "indice" not in st.session_state:
-    st.session_state.indice = 0
+    st.session_state.indice = quantidade_avaliacoes
 
 # Caso todas as avaliações tenham terminado
 if st.session_state.indice >= len(df):
