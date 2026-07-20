@@ -147,7 +147,6 @@ if salvar:
         str(linha["feedback"]),
         str(avaliacao),
         str(observacao),
-        datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     ])
 
     st.session_state.indice += 1
