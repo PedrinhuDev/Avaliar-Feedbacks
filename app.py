@@ -112,20 +112,38 @@ st.write(linha["feedback"])
 
 st.subheader("Avaliação do Professor")
 
-avaliacao = st.radio(
-    "O feedback está correto?",
-    [
-        "Correto",
-        "Parcialmente correto",
-        "Incorreto"
-    ],
-    key=f"avaliacao_{st.session_state.indice}"
-)
+with st.form(key=f"form_{st.session_state.indice}"):
 
-observacao = st.text_area(
-    "Observações",
-    key=f"observacao_{st.session_state.indice}"
-)
+    avaliacao = st.radio(
+        "O feedback está correto?",
+        [
+            "Correto",
+            "Parcialmente correto",
+            "Incorreto"
+        ],
+        key=f"avaliacao_{st.session_state.indice}"
+    )
+
+    observacao = st.text_area(
+        "Observações",
+        key=f"observacao_{st.session_state.indice}"
+    )
+
+    salvar = st.form_submit_button("Salvar")
+
+if salvar:
+
+    worksheet.append_row([
+        int(linha["problem_id"]),
+        str(linha["feedback"]),
+        str(avaliacao),
+        str(observacao),
+        datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+    ])
+
+    st.session_state.indice += 1
+
+    st.rerun()
 
 # =====================
 # BOTÃO SALVAR
